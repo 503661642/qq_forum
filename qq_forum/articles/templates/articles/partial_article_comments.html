@@ -1,0 +1,23 @@
+{% load i18n %}
+<hr>
+<span class="pull-right text-muted" id="comment-helper" style="display: none"><small>{% trans '请按 Ctrl + Enter 发表' %}</small></span>
+<h4><span class="comment-count">{{ article.get_comments.count }}</span> {% trans '评论' %}</h4>
+<div class="post-comment clearfix">
+  <form role="form" id="comment-form">
+    {% csrf_token %}
+    <input type="hidden" name="article" value="{{ article.pk }}">
+    <div class="user-portrait clearfix">
+      <img src="{{ user.profile.get_picture }}">
+    </div>
+    <div class="comment-input clearfix">
+      <textarea class="form-control" rows="1" placeholder="{% trans '写个评论吧...' %}" name="comment" id="comment"></textarea>
+    </div>
+  </form>
+</div>
+<div class="well well-sm" id="comment-list">
+  {% for comment in article.get_comments %}
+    {% include 'articles/partial_article_comment.html' with comment=comment %}
+  {% empty %}
+    <div style="padding: .6em 0">{% trans '做第一个发表评论的人吧!' %}</div>
+  {% endfor %}
+</div>

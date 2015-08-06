@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <script src="{% static 'js/articles.js' %}"></script>
+{% endblock head %}
+
+{% block main %}
+  <ol class="breadcrumb">
+    <li><a href="{% url 'articles' %}">{% trans '贴子' %}</a></li>
+    <li class="active">{% trans '草稿箱' %}</li>
+  </ol>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>{% trans '标题' %}</th>
+        <th>{% trans '内容' %}</th>
+        <th>{% trans '标签' %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in drafts %}
+        <tr>
+          <td><a href="{% url 'edit_article' article.pk %}">{{ article.title }}</a></td>
+          <td>{{ article.get_summary_as_markdown|safe }}</td>
+          <td>
+            {% for tag in article.get_tags %}
+              <span class="label label-default">{{ tag }}</span>
+            {% endfor %}
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4" style="text-align: center">
+            {% trans '草稿箱是空的' %}
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock main %}

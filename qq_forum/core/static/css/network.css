@@ -1,0 +1,16 @@
+.panel-default > .panel-heading {
+  color: #333;
+  background-color: #d7bdf3;
+  border-color:#D1B2FF;
+}
+
+.panel-body{
+background-color:#ebe2f5;
+}
+.users {
+  margin-top: 2em;
+}
+
+.users .panel-heading img {
+  margin-right: .6em;
+}
